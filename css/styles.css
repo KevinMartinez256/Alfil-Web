@@ -3475,7 +3475,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 92, 171, 0.7); /* Overlay azul para mejor legibilidad */
+    background: rgba(134, 37, 136, 0.7); /* Overlay morado para mejor legibilidad */
     z-index: 1;
 }
 
@@ -4477,7 +4477,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 92, 171, 0.7);
+    background: rgba(134, 37, 136, 0.7);
     z-index: 1;
 }
 
