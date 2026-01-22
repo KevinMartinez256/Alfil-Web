@@ -1,4 +1,4 @@
-// CR NOVA Security Website - Main JavaScript File
+// ALFIL - Main JavaScript File
 
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu functionality
@@ -595,9 +595,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Console welcome message
-    console.log('%c🚀 CR NOVA Security Website', 'color: #005CAB; font-size: 20px; font-weight: bold;');
-    console.log('%cBienvenido al sitio web oficial de CR NOVA Security', 'color: #0096D6; font-size: 14px;');
-    console.log('%cSoluciones integrales de seguridad privada', 'color: #54534A; font-size: 12px;');
+    console.log('%c🚀 ALFIL Website', 'color: #862588; font-size: 20px; font-weight: bold;');
+    console.log('%cBienvenido al sitio web oficial de ALFIL', 'color: #b8409e; font-size: 14px;');
+    console.log('%cSeguridad especializada para tu cadena logística', 'color: #54534A; font-size: 12px;');
 
     // ===== MANEJO DEL FORMULARIO DE SUSCRIPCIÓN AL BLOG =====
     document.addEventListener('submit', function(e) {
