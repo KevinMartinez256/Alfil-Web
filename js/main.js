@@ -97,20 +97,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let current = '';
         
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const headerHeight = document.querySelector('.header').offsetHeight;
-            
-            if (window.pageYOffset >= (sectionTop - headerHeight - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
+        // Si estamos en el top de la página, activar home
+        if (window.pageYOffset < 100) {
+            current = 'home';
+        } else {
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                
+                if (window.pageYOffset >= (sectionTop - headerHeight - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+        }
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
+            const href = link.getAttribute('href');
+            
+            // Activar para enlaces internos (que empiezan con #)
+            if (href && href.startsWith('#') && href === `#${current}`) {
                 link.classList.add('active');
+            }
+            // También activar para enlaces externos que coincidan con la sección
+            // Por ejemplo: about.html cuando estás en sección #about
+            else if (href && href.includes('.html')) {
+                const pageName = href.replace('.html', '');
+                if (pageName === current) {
+                    link.classList.add('active');
+                }
             }
         });
     }
@@ -133,112 +149,50 @@ document.addEventListener('DOMContentLoaded', function() {
         handleHeaderScroll();
     });
 
-    // Form handling
+    // ===== MANEJO DEL FORMULARIO DE CONTACTO =====
     const contactForm = document.querySelector('.contact-form-fields');
-    const careersForm = document.querySelector('.cv-form');
-
+    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleFormSubmission(this, 'contacto');
-        });
-    }
-
-    if (careersForm) {
-        careersForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleFormSubmission(this, 'bolsa de trabajo');
-        });
-    }
-
-    function handleFormSubmission(form, formType) {
-        const formData = new FormData(form);
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        
-        // Show loading state
-        submitButton.textContent = 'Enviando...';
-        submitButton.disabled = true;
-        
-        // Simulate form submission (replace with actual API call)
-        setTimeout(() => {
-            // Show success message
-            showNotification(`Formulario de ${formType} enviado exitosamente. Nos pondremos en contacto contigo pronto.`, 'success');
             
-            // Reset form
-            form.reset();
-            
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
-    }
-
-    // Notification system
-    function showNotification(message, type = 'info') {
-        // Remove existing notifications
-        const existingNotifications = document.querySelectorAll('.notification');
-        existingNotifications.forEach(notification => notification.remove());
-        
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-message">${message}</span>
-                <button class="notification-close">&times;</button>
-            </div>
-        `;
-        
-        // Add styles
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: ${type === 'success' ? '#28a745' : '#007bff'};
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 10000;
-            max-width: 400px;
-            animation: slideInRight 0.3s ease-out;
-        `;
-        
-        // Add animation keyframes
-        if (!document.querySelector('#notification-styles')) {
-            const style = document.createElement('style');
-            style.id = 'notification-styles';
-            style.textContent = `
-                @keyframes slideInRight {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOutRight {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Add to page
-        document.body.appendChild(notification);
-        
-        // Close button functionality
-        const closeButton = notification.querySelector('.notification-close');
-        closeButton.addEventListener('click', () => {
-            notification.style.animation = 'slideOutRight 0.3s ease-out';
-            setTimeout(() => notification.remove(), 300);
-        });
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'slideOutRight 0.3s ease-out';
-                setTimeout(() => notification.remove(), 300);
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.textContent : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando...';
             }
-        }, 5000);
+
+            const endpoint = contactForm.getAttribute('action') || 'send-contact.php';
+
+            fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+                
+                if (data.exito) {
+                    mostrarAlerta(data.mensaje, 'success');
+                    contactForm.reset();
+                } else {
+                    mostrarAlerta(data.mensaje || 'No se pudo enviar el mensaje.', 'error');
+                }
+            })
+            .catch(err => {
+                console.error('Error contacto:', err);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+                mostrarAlerta('Error al enviar el formulario de contacto. Intenta nuevamente.', 'error');
+            });
+        });
     }
 
     // Intersection Observer for animations
@@ -496,8 +450,236 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize image placeholders
     initializeImagePlaceholders();
 
+    // ===== MANEJO DEL FORMULARIO DE CV =====
+    const cvForm = document.querySelector('.cv-form');
+    
+    if (cvForm) {
+        cvForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Crear FormData para enviar archivos
+            const formData = new FormData(this);
+            
+            // Obtener botón de submit
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const textoBtnOriginal = submitBtn.textContent;
+            
+            // Mostrar estado de carga
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            
+            const endpoint = cvForm.getAttribute('action') || 'send-cv.php';
+
+            // Enviar formulario via AJAX
+            fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.textContent = textoBtnOriginal;
+                
+                if (data.exito) {
+                    // Mostrar mensaje de éxito
+                    mostrarAlerta(data.mensaje, 'success');
+                    
+                    // Limpiar formulario
+                    cvForm.reset();
+                    
+                    // Restaurar label del archivo
+                    const fileLabel = cvForm.querySelector('.file-upload-label span');
+                    if (fileLabel) {
+                        fileLabel.textContent = 'Subir CV (PDF, DOC, DOCX)';
+                    }
+                    const fileUploadLabel = cvForm.querySelector('.file-upload-label');
+                    if (fileUploadLabel) {
+                        fileUploadLabel.classList.remove('has-file');
+                    }
+                } else {
+                    // Mostrar mensaje de error
+                    mostrarAlerta(data.mensaje, 'error');
+                }
+            })
+            .catch(error => {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.textContent = textoBtnOriginal;
+                
+                console.error('Error:', error);
+                mostrarAlerta('Error al enviar el formulario. Por favor, intenta de nuevo.', 'error');
+            });
+        });
+    }
+    
+    // ===== FUNCIÓN PARA MOSTRAR ALERTAS =====
+    function mostrarAlerta(mensaje, tipo) {
+        // Crear elemento de alerta
+        const alerta = document.createElement('div');
+        alerta.className = `alerta alerta-${tipo}`;
+        alerta.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 400px;
+        `;
+        
+        // Estilos según tipo
+        if (tipo === 'success') {
+            alerta.style.backgroundColor = '#4CAF50';
+            alerta.style.color = 'white';
+            alerta.style.borderLeft = '4px solid #45a049';
+        } else if (tipo === 'error') {
+            alerta.style.backgroundColor = '#f44336';
+            alerta.style.color = 'white';
+            alerta.style.borderLeft = '4px solid #da190b';
+        }
+        
+        alerta.textContent = mensaje;
+        document.body.appendChild(alerta);
+        
+        // Eliminar alerta después de 5 segundos
+        setTimeout(() => {
+            alerta.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => {
+                alerta.remove();
+            }, 300);
+        }, 5000);
+    }
+    
+    // Agregar animaciones CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Ver más button functionality for blog articles
+    const verMasBtn = document.querySelector('.ver-mas-btn');
+    const hiddenArticles = document.querySelectorAll('.hidden-article');
+    
+    if (verMasBtn && hiddenArticles.length > 0) {
+        verMasBtn.addEventListener('click', function() {
+            hiddenArticles.forEach(article => {
+                article.style.display = 'block';
+                article.style.animation = 'fadeIn 0.5s ease-in';
+            });
+            verMasBtn.style.display = 'none';
+        });
+    }
+
     // Console welcome message
-    console.log('%c🚀 ALFIL', 'color: #005CAB; font-size: 20px; font-weight: bold;');
-    console.log('%cBienvenido al sitio web oficial de ALFIL', 'color: #0096D6; font-size: 14px;');
-    console.log('%cSeguridad especializada para tu cadena logística', 'color: #54534A; font-size: 12px;');
+    console.log('%c🚀 CR NOVA Security Website', 'color: #005CAB; font-size: 20px; font-weight: bold;');
+    console.log('%cBienvenido al sitio web oficial de CR NOVA Security', 'color: #0096D6; font-size: 14px;');
+    console.log('%cSoluciones integrales de seguridad privada', 'color: #54534A; font-size: 12px;');
+
+    // ===== MANEJO DEL FORMULARIO DE SUSCRIPCIÓN AL BLOG =====
+    document.addEventListener('submit', function(e) {
+        if (!e.target.classList.contains('subscribe-form')) return;
+        
+        e.preventDefault();
+        
+        const subscribeForm = e.target;
+        const formData = new FormData(subscribeForm);
+        const submitBtn = subscribeForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.textContent : '';
+        
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Suscribiendo...';
+        }
+
+        const endpoint = subscribeForm.getAttribute('action') || 'send-subscribe.php';
+
+        fetch(endpoint, {
+            method: 'POST',
+            body: formData
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+            
+            if (data.exito) {
+                mostrarAlerta(data.mensaje, 'success');
+                subscribeForm.reset();
+            } else {
+                mostrarAlerta(data.mensaje || 'Error en la suscripción.', 'error');
+            }
+        })
+        .catch(err => {
+            console.error('Error suscripción:', err);
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+            mostrarAlerta('Error al procesar tu suscripción. Intenta de nuevo.', 'error');
+        });
+    });
+
+    // Cookie Consent Banner functionality
+    const cookieConsentBanner = document.getElementById('cookie-consent');
+    const cookieApproveBtn = document.getElementById('cookie-approve-btn');
+    
+    if (cookieConsentBanner && cookieApproveBtn) {
+        // Check if user has already accepted cookies
+        const cookieConsent = localStorage.getItem('cookieConsent');
+        
+        if (cookieConsent === 'accepted') {
+            cookieConsentBanner.classList.add('hidden');
+        }
+        
+        // Handle approve button click
+        cookieApproveBtn.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsentBanner.classList.add('hidden');
+        });
+    }
+
+    // WhatsApp Floating Button - Dynamic Creation
+    (function () {
+        const num = "525579791597";
+        const url = "https://wa.me/" + num;
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.className = "whatsapp-float";
+        a.title = "Contáctanos por WhatsApp";
+
+        const icon = document.createElement("i");
+        icon.className = "fab fa-whatsapp";
+
+        a.appendChild(icon);
+        document.body.appendChild(a);
+    })();
 });

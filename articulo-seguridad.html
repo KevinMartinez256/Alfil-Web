@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguridad privada en México: del vigilante a la vigilancia inteligente - Alfil Security</title>
+    <title>Seguridad privada en México: del vigilante a la vigilancia inteligente - CRNOVA Security</title>
     <meta name="description" content="Explora cómo ha evolucionado la seguridad privada en México con tecnologías como IA, drones y análisis de datos para anticipar riesgos y reforzar la protección.">
+    <link rel="icon" type="image/png" href="assets/pestaña.png">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -16,13 +17,13 @@
             <div class="nav-container">
                 <div class="logo-container">
                     <a href="index.html#home" class="logo-link">
-                        <img src="assets/ICONO ALFIL.png" alt="Alfil Security Logo" class="logo-image">
+                        <img src="assets/logo3.png" alt="CRNOVA Security Logo" class="logo-image">
                     </a>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="index.html#home" class="nav-link">Inicio</a></li>
-                    <li><a href="index.html#about" class="nav-link">¿Quiénes somos?</a></li>
-                    <li><a href="index.html#services" class="nav-link">Servicios</a></li>
+                    <li><a href="about.html" class="nav-link">¿Quiénes somos?</a></li>
+                    <li><a href="services.html" class="nav-link">Servicios</a></li>
                     <li><a href="index.html#careers" class="nav-link">Bolsa de Trabajo</a></li>
                     <li><a href="blog.html" class="nav-link active">Blog</a></li>
                     <li><a href="index.html#contact" class="nav-link contact-btn">Contacto</a></li>
@@ -162,31 +163,37 @@
                     
                     <article class="related-article">
                         <div class="related-article-image">
-                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=300&h=200&fit=crop" alt="IA en seguridad">
+                            <a href="articulo-seguridad2.html">
+                                <img src="assets/blog2.png" alt="Certificaciones BASC e ISO">
+                            </a>
                         </div>
                         <div class="related-article-content">
-                            <span class="related-article-category">INNOVACIÓN</span>
-                            <h4 class="related-article-title">La IA como aliada en la seguridad empresarial</h4>
+                            <span class="related-article-category">CERTIFICACIONES</span>
+                            <h4 class="related-article-title"><a href="articulo-seguridad2.html">Certificaciones de Calidad Internacional</a></h4>
                         </div>
                     </article>
                     
                     <article class="related-article">
                         <div class="related-article-image">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&h=200&fit=crop" alt="Caso de estudio">
+                            <a href="articulo-seguridad3.html">
+                                <img src="assets/blog3.png" alt="Seguridad en el Transporte de Mercancías">
+                            </a>
                         </div>
                         <div class="related-article-content">
-                            <span class="related-article-category">CASO DE ESTUDIO</span>
-                            <h4 class="related-article-title">Lecciones aprendidas de un ataque de phishing real</h4>
+                            <span class="related-article-category">LOGÍSTICA</span>
+                            <h4 class="related-article-title"><a href="articulo-seguridad3.html">Seguridad en el Transporte de Mercancías</a></h4>
                         </div>
                     </article>
                     
                     <article class="related-article">
                         <div class="related-article-image">
-                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=300&h=200&fit=crop" alt="Contraseñas seguras">
+                            <a href="articulo-seguridad4.html">
+                                <img src="assets/blog4.png" alt="Seguridad intramuros en México">
+                            </a>
                         </div>
                         <div class="related-article-content">
-                            <span class="related-article-category">CULTURA</span>
-                            <h4 class="related-article-title">Contraseñas seguras: la guía definitiva para tus empleados</h4>
+                            <span class="related-article-category">SEGURIDAD FÍSICA</span>
+                            <h4 class="related-article-title"><a href="articulo-seguridad4.html">Seguridad intramuros en México</a></h4>
                         </div>
                     </article>
                 </div>
@@ -200,9 +207,9 @@
             <div class="subscribe-content">
                 <h2 class="subscribe-title">¡No te pierdas de las últimas novedades!</h2>
                 <p class="subscribe-description">Recibe alertas sobre nuestras más recientes publicaciones directamente en tu correo</p>
-                <form class="subscribe-form">
+                <form class="subscribe-form" action="/send-subscribe.php" method="POST">
                     <div class="subscribe-input-group">
-                        <input type="email" placeholder="Escribe aquí tu correo electrónico" required class="subscribe-input">
+                        <input type="email" name="email" placeholder="Escribe aquí tu correo electrónico" required class="subscribe-input">
                         <button type="submit" class="btn btn-primary subscribe-btn">Suscribirse</button>
                     </div>
                 </form>
@@ -215,49 +222,33 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Alfil SECURITY</h3>
+                    <h3>ALFIL</h3>
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>info@alfilsecurity.com.mx</span>
+                            <span>infonova@crnova.com.mx</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+52 55 1234 5678</span>
+                            <span>+52 55 2225 0591</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-clock"></i>
-                            <span>Lun-Vie 9-19 h / Sáb 10-13 h</span>
+                            <span>Lun a Vier - 8:00 - 17:00</span>
                         </div>
                     </div>
                     
                     <!-- Línea divisoria -->
                     <div class="footer-divider"></div>
                     
-                    <!-- Contacto de Denuncias -->
-                    <div class="denuncias-section">
-                        <h4>Contacto de Denuncias</h4>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>denuncias@alfilsecurity.com.mx</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>55 8065 7009</span>
-                        </div>
+                    
                     </div>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/alfilsecurityoficial/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/alfilsecuritysecurity/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/cr-nova-security/?viewAsMember=true" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
                 
                 <div class="footer-section">
                     <h3>Mapa del Sitio</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html#about">¿Quiénes somos?</a></li>
-                        <li><a href="index.html#services">Servicios</a></li>
+                        <li><a href="about.html">¿Quiénes somos?</a></li>
+                        <li><a href="services.html">Servicios</a></li>
                         <li><a href="index.html#careers">Bolsa de Trabajo</a></li>
                         <li><a href="index.html#contact">Contacto</a></li>
                         <li><a href="blog.html">Blog</a></li>
@@ -285,22 +276,17 @@
             
             <div class="footer-bottom">
                 <div class="copyright">
-                    <p>&copy; 2025 Alfil. Todos los derechos reservados.</p>
+                    <p>&copy; 2026 ALFIL. Todos los derechos reservados.</p>
                 </div>
                 <div class="legal-links">
-                    <a href="#politica-privacidad">Política de Privacidad</a>
+                    <a href="privacy-policies.html">Política Integral</a>
+                    <a href="privacy-policies2.html">Política de Privacidad</a>
                     <a href="#terminos-servicio">Términos de Servicio</a>
-                    <a href="#configuracion-cookies">Configuración de Cookies</a>
+                    <a href="cookies.html">Configuración de Cookies</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/525579791597" target="_blank" rel="noopener noreferrer" class="whatsapp-float" title="Contáctanos por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -6,12 +6,12 @@
 }
 
 :root {
-    /* Paleta de colores corporativa Alfil Security - Lila/Morado */
-    --primary-blue: #862588;      /* Morado/Magenta vibrante - Color principal */
-    --secondary-blue: #cb6ce6;    /* Lila/Púrpura claro - Color secundario */
+    /* Paleta de colores corporativa actualizada */
+    --primary-blue: #862588;      /* PANTONE 2728 M - Azul oscuro */
+    --secondary-blue: #cb6ce6;    /* PANTONE 2925 C - Cian brillante */
     --neutral-gray: #54534A;      /* PANTONE BLACK 7M - Gris oscuro/marrón */
-    --primary-purple: #862588;    /* Morado/Magenta vibrante - Color principal */
-    --secondary-purple: #cb6ce6;  /* Lila/Púrpura claro - Color secundario */
+    --primary-purple: #862588;    /* Magenta/púrpura vibrante */
+    --secondary-purple: #cb6ce6;  /* Púrpura/lavanda claro */
     --white: #ffffff;
     --light-gray: #f8f9fa;
     --medium-gray: #e9ecef;
@@ -33,8 +33,15 @@
     --transition-medium: 0.5s ease;
 }
 
+html, body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
 html {
     scroll-behavior: smooth;
+    overflow-y: scroll; /* Fuerza la barra de scroll vertical permanente */
 }
 
 body {
@@ -205,7 +212,7 @@ body {
 
 /* Hero Section Actualizada */
 .hero {
-    background-image: url('../assets/alfil4.png');
+    background-image: url('../assets/head.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -224,7 +231,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(134, 37, 136, 0.7); /* Overlay morado para mejor legibilidad */
+    background: rgba(134, 37, 136, 0.78); /* Overlay morado Alfil para mejor legibilidad */
     z-index: 1;
 }
 
@@ -408,7 +415,8 @@ body {
     padding: 80px 0;
     background: var(--white);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .about::before {
@@ -539,7 +547,7 @@ body {
 .services .services-cta {
     text-align: center;
     margin-top: 3rem;
-    background: none;
+    background: none !important;
     padding: 0;
 }
 
@@ -888,7 +896,7 @@ body {
 .careers {
     padding: 60px 0;
     background: var(--light-gray);
-    background-image: url('../assets/1.jpg');
+    background-image: url('../assets/2.jpg');
     background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
@@ -1740,7 +1748,7 @@ body {
 
 /* Footer */
 .footer {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
     color: var(--white);
     padding: 80px 0 30px;
     position: relative;
@@ -1754,7 +1762,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: linear-gradient(135deg, rgba(0, 92, 171, 0.9) 0%, rgba(0, 150, 214, 0.9) 100%), url('https://i.imgur.com/zyH42gK.jpeg');
+    background-image: linear-gradient(135deg, rgba(134, 37, 136, 0.9) 0%, rgba(203, 108, 230, 0.9) 100%), url('https://i.imgur.com/zyH42gK.jpeg');
     background-size: cover;
     background-position: center;
     opacity: 0.1;
@@ -2154,7 +2162,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 92, 171, 0.7);
+    background: rgba(134, 37, 136, 0.78);
     z-index: 1;
 }
 
@@ -2492,7 +2500,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 92, 171, 0.7); /* Overlay azul para mejor legibilidad */
+    background: rgba(134, 37, 136, 0.78);
     z-index: 1;
 }
 
@@ -3246,8 +3254,8 @@ body {
 .historia-timeline {
     margin: 4rem 0;
     position: relative;
-    overflow-x: auto;
-    max-width: 100vw;
+    overflow-x: visible;
+    max-width: 100%;
 }
 
 .historia-timeline::before {
@@ -3268,6 +3276,7 @@ body {
     align-items: center;
     margin-bottom: 4rem;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .timeline-item:nth-child(odd) {
@@ -3305,11 +3314,13 @@ body {
     margin: 0 1rem;
     position: relative;
     z-index: 1;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .timeline-image {
     flex-shrink: 0;
-    width: 200px;
+    width: min(200px, 100%);
     height: 150px;
     border-radius: 12px;
     overflow: hidden;
@@ -3321,6 +3332,13 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+}
+
+/* Evitar recorte SOLO en timeline7.jpg */
+.timeline-image img[src$="timeline7.jpg"] {
+  object-fit: contain;
+  object-position: center;
+  background: var(--light-gray);
 }
 
 .timeline-image:hover img {
@@ -3475,7 +3493,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(134, 37, 136, 0.7); /* Overlay morado para mejor legibilidad */
+    background: rgba(134, 37, 136, 0.78);
     z-index: 1;
 }
 
@@ -3505,7 +3523,7 @@ body {
 .services-overview {
     padding: 80px 0;
     background: var(--white);
-    background-image: url('../assets/1.jpg');
+    background-image: url('../assets/2.jpg');
     background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
@@ -3858,7 +3876,7 @@ body {
 /* Services CTA */
 .services-cta {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    background: linear-gradient(135deg, #862588 0%, #6b1b6e 100%);
     color: var(--white);
     text-align: center;
     position: relative;
@@ -4437,17 +4455,34 @@ body {
     overflow-x: hidden;
 }
 
-/* Ocultar barra de scroll en webkit browsers */
+/* Mostrar barra de scroll personalizada */
 ::-webkit-scrollbar {
-    display: none;
+    width: 12px;
 }
 
-/* Ocultar barra de scroll en Firefox */
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 92, 171, 0.5); /* Color azul corporativo con transparencia */
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 92, 171, 0.7);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Firefox */
 * {
-    scrollbar-width: none;
+    scrollbar-width: auto;
+    scrollbar-color: rgba(0, 92, 171, 0.5) transparent;
 }
 
-
+/* Asegurar scroll vertical visible */
+html {
+    overflow-y: scroll;
+}
 
 /* Estilos para elementos activos del menú */
 .nav-link.active {
@@ -4477,7 +4512,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(134, 37, 136, 0.7);
+    background: rgba(134, 37, 136, 0.78);
     z-index: 1;
 }
 
@@ -4518,7 +4553,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 92, 171, 0.1) 0%, rgba(0, 92, 171, 0.3) 100%);
+    background: transparent;
     z-index: 1;
 }
 
@@ -4574,7 +4609,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 92, 171, 0.7);
+    background: linear-gradient(180deg, rgba(134, 37, 136, 0.78) 0%, rgba(134, 37, 136, 0.78) 100%);
     z-index: 1;
 }
 
@@ -4583,7 +4618,7 @@ body {
     grid-template-columns: 1fr 1fr !important;
     gap: 0 !important;
     align-items: center !important;
-    min-height: 500px !important;
+    min-height: 600px !important;
     max-width: none !important;
     margin: 0 !important;
     position: relative;
@@ -4618,7 +4653,7 @@ body {
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: linear-gradient(135deg, rgba(0, 92, 171, 0.1) 0%, rgba(0, 92, 171, 0.3) 100%) !important;
+    background: transparent !important;
     z-index: 1 !important;
 }
 
@@ -4788,5 +4823,148 @@ body {
     
     .whatsapp-float i {
         font-size: 24px;
+    }
+}
+
+/* Media Query para prevenir problemas con background-attachment: fixed */
+@media (max-width: 1200px), (hover: none) {
+    .hero,
+    .services,
+    .careers,
+    .contact,
+    .about-hero,
+    .blog-hero {
+        background-attachment: scroll;
+    }
+}
+
+.historia-detallada {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Cookie Consent Banner */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 2rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.cookie-consent-banner.hidden {
+    display: none;
+}
+
+.cookie-consent-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.cookie-consent-icon {
+    font-size: 2rem;
+    color: #cb6ce6;
+    flex-shrink: 0;
+}
+
+.cookie-consent-text {
+    flex: 1;
+    color: #e0e0e0;
+}
+
+.cookie-consent-text h3 {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-secondary);
+    font-weight: 600;
+}
+
+.cookie-consent-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.cookie-consent-text a {
+    color: #64b5f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.cookie-consent-text a:hover {
+    color: #90caf9;
+    text-decoration: underline;
+}
+
+.cookie-approve-btn {
+    background: linear-gradient(135deg, #862588 0%, #cb6ce6 100%);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(134, 37, 136, 0.3);
+    font-size: 1rem;
+}
+
+.cookie-approve-btn:hover {
+    background: linear-gradient(135deg, #cb6ce6 0%, #862588 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(134, 37, 136, 0.4);
+}
+
+.cookie-approve-btn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .cookie-consent-banner {
+        padding: 1rem;
+    }
+
+    .cookie-consent-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .cookie-consent-icon {
+        font-size: 1.5rem;
+    }
+
+    .cookie-consent-text h3 {
+        font-size: 1rem;
+    }
+
+    .cookie-consent-text p {
+        font-size: 0.9rem;
+    }
+
+    .cookie-approve-btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
     }
 }
