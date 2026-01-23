@@ -560,7 +560,7 @@ body {
 
 .clients-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -3084,7 +3084,7 @@ body {
     margin: 0;
 }
 
-/* Estilos para Significado del Nombre CRNOVA */
+/* Estilos para Significado del Nombre ALFIL */
 .nombre-significado {
     padding: 80px 0;
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
@@ -4461,12 +4461,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 92, 171, 0.5); /* Color azul corporativo con transparencia */
+    background: rgba(156, 39, 176, 0.5); /* Color morado con transparencia */
     border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 92, 171, 0.7);
+    background: rgba(156, 39, 176, 0.7);
 }
 
 ::-webkit-scrollbar-track {
@@ -4476,7 +4476,7 @@ body {
 /* Firefox */
 * {
     scrollbar-width: auto;
-    scrollbar-color: rgba(0, 92, 171, 0.5) transparent;
+    scrollbar-color: rgba(156, 39, 176, 0.5) transparent;
 }
 
 /* Asegurar scroll vertical visible */
