@@ -3305,7 +3305,7 @@ body {
 .timeline-content {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 2rem;
     background: var(--white);
     padding: 2rem;
@@ -3314,17 +3314,17 @@ body {
     margin: 0 1rem;
     position: relative;
     z-index: 1;
-    flex-wrap: wrap;
     max-width: 100%;
 }
 
 .timeline-image {
     flex-shrink: 0;
-    width: min(200px, 100%);
-    height: 150px;
+    width: 220px;
+    height: 180px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow-medium);
+    align-self: center;
 }
 
 .timeline-image img {
@@ -3334,29 +3334,13 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Evitar recorte SOLO en timeline7.jpg */
-.timeline-image img[src$="timeline7.jpg"] {
-  object-fit: contain;
-  object-position: center;
-  background: var(--light-gray);
-}
-
 .timeline-image:hover img {
     transform: scale(1.05);
 }
 
-/* Ajuste específico para timeline7.jpg */
-.timeline-item:last-of-type .timeline-image {
-    width: 250px;
-    height: 180px;
-}
-
-.timeline-item:last-of-type .timeline-image img {
-    object-fit: contain;
-    object-position: center;
-    background: var(--light-gray);
-    width: 100%;
-    height: 100%;
+.timeline-text {
+    flex: 1;
+    min-width: 0;
 }
 
 .timeline-text h3 {
